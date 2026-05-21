@@ -65,6 +65,11 @@
     <table id="matches-table"></table>
   </div>
 
+  <div class="section">
+    <h2>📝 Tips</h2>
+    <table id="tips-table"></table>
+  </div>
+
 <script>
 
 const leaderboardCSV =
@@ -73,12 +78,16 @@ const leaderboardCSV =
 const matchesCSV =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbu-x0A3E3xaDuKiZHAIjTDcV-XsDkpQJ3NuX9Qg8FGLfRhu6bC_0qYwOeKpaToA/pub?gid=690767260&single=true&output=csv";
 
+const tipsCSV =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vQbu-x0A3E3xaDuKiZHAIjTDcV-XsDkpQJ3NuX9Qg8FGLfRhu6bC_0qYwOeKpaToA/pub?gid=114534825&single=true&output=csv";
+  
 async function loadCSV(url) {
   const response = await fetch(url);
   const data = await response.text();
   return data.split("\n").map(row => row.split(","));
 }
 
+//leaderborden
 async function loadLeaderboard() {
   const rows = await loadCSV(leaderboardCSV);
 
@@ -101,6 +110,7 @@ async function loadLeaderboard() {
   document.getElementById("leaderboard-table").innerHTML = html;
 }
 
+//matcher
 async function loadMatches() {
   const rows = await loadCSV(matchesCSV);
 
@@ -123,9 +133,33 @@ async function loadMatches() {
   document.getElementById("matches-table").innerHTML = html;
 }
 
+//tipsen
+async function loadTips() {
+  const rows = await loadCSV(tipsCSV);
+
+  let html = "";
+
+  rows.forEach((row, index) => {
+    html += "<tr>";
+
+    row.forEach(cell => {
+      if(index === 0){
+        html += `<th>${cell}</th>`;
+      } else {
+        html += `<td>${cell}</td>`;
+      }
+    });
+
+    html += "</tr>";
+  });
+
+  document.getElementById("tips-table").innerHTML = html;
+}
+
 loadLeaderboard();
 loadMatches();
-
+loadTips();
+  
 </script>
 
 </body>
