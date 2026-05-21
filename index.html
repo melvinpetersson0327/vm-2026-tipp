@@ -14,22 +14,42 @@
 
   <h1>🏆 VM 2026 Tipp</h1>
 
-  <div class="section">
+  <div class="navbar">
+
+    <button onclick="showSection('leaderboard-section')">
+      🏆 Leaderboard
+    </button>
+  
+    <button onclick="showSection('matches-section')">
+      ⚽ Matcher
+    </button>
+  
+    <button onclick="showSection('tips-section')">
+      📝 Tips
+    </button>
+  
+    <button onclick="showSection('players-section')">
+      👤 Personer
+    </button>
+
+  </div>
+
+  <div class="section" id="leaderboard-section">
     <h2>🔥 Leaderboard</h2>
     <table id="leaderboard-table"></table>
   </div>
 
-  <div class="section">
+  <div class="section" id="matches-section">
     <h2>⚽ Matcher</h2>
     <table id="matches-table"></table>
   </div>
 
-  <div class="section">
+  <div class="section" id="tips-section">
     <h2>📝 Tips</h2>
     <table id="tips-table"></table>
   </div>
 
-  <div class="section">
+  <div class="section" id="players-section">
     <h2>👤 Visa tips per person</h2>
 
     <div id="player-buttons"></div>
