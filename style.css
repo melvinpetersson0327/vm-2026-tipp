@@ -83,3 +83,15 @@ button {
   }
 
 }
+
+.navbar {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:30px;
+}
+
+.navbar button {
+  flex:1;
+  min-width:150px;
+}
