@@ -148,7 +148,19 @@ function showPlayerTips(playerName){
   document.getElementById("player-tips-table").innerHTML = html;
 }
 
+function showSection(sectionId){
+
+  document.getElementById("leaderboard-section").style.display = "none";
+  document.getElementById("matches-section").style.display = "none";
+  document.getElementById("tips-section").style.display = "none";
+  document.getElementById("players-section").style.display = "none";
+
+  document.getElementById(sectionId).style.display = "block";
+}
+
 loadLeaderboard();
 loadMatches();
 loadTips();
 loadPlayerButtons();
+
+showSection('leaderboard-section');
