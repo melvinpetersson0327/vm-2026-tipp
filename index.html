@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VM 2026 Tipp</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #334155;
+      text-align: left;
+    }
+
+    th {
+      background: #334155;
+    }
+
+    tr:hover {
+      background: #273549;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🏆 VM 2026 Tipp</h1>
+
+  <div class="section">
+    <h2>🔥 Leaderboard</h2>
+    <table id="leaderboard-table"></table>
+  </div>
+
+  <div class="section">
+    <h2>⚽ Matcher</h2>
+    <table id="matches-table"></table>
+  </div>
+
+<script>
+
+const leaderboardCSV =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vQbu-x0A3E3xaDuKiZHAIjTDcV-XsDkpQJ3NuX9Qg8FGLfRhu6bC_0qYwOeKpaToA/pub?gid=797355487&single=true&output=csv";
+
+const matchesCSV =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vQbu-x0A3E3xaDuKiZHAIjTDcV-XsDkpQJ3NuX9Qg8FGLfRhu6bC_0qYwOeKpaToA/pub?gid=690767260&single=true&output=csv";
+
+async function loadCSV(url) {
+  const response = await fetch(url);
+  const data = await response.text();
+  return data.split("\n").map(row => row.split(","));
+}
+
+async function loadLeaderboard() {
+  const rows = await loadCSV(leaderboardCSV);
+
+  let html = "";
+
+  rows.forEach((row, index) => {
+    html += "<tr>";
+
+    row.forEach(cell => {
+      if(index === 0){
+        html += `<th>${cell}</th>`;
+      } else {
+        html += `<td>${cell}</td>`;
+      }
+    });
+
+    html += "</tr>";
+  });
+
+  document.getElementById("leaderboard-table").innerHTML = html;
+}
+
+async function loadMatches() {
+  const rows = await loadCSV(matchesCSV);
+
+  let html = "";
+
+  rows.forEach((row, index) => {
+    html += "<tr>";
+
+    row.forEach(cell => {
+      if(index === 0){
+        html += `<th>${cell}</th>`;
+      } else {
+        html += `<td>${cell}</td>`;
+      }
+    });
+
+    html += "</tr>";
+  });
+
+  document.getElementById("matches-table").innerHTML = html;
+}
+
+loadLeaderboard();
+loadMatches();
+
+</script>
+
+</body>
+</html>
