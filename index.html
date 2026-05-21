@@ -70,6 +70,16 @@
     <table id="tips-table"></table>
   </div>
 
+  <div class="section">
+    <h2>👤 Visa tips per person</h2>
+  
+    <div id="player-buttons"></div>
+  
+    <br>
+  
+    <table id="player-tips-table"></table>
+  </div>
+
 <script>
 
 const leaderboardCSV =
@@ -80,6 +90,9 @@ const matchesCSV =
 
 const tipsCSV =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbu-x0A3E3xaDuKiZHAIjTDcV-XsDkpQJ3NuX9Qg8FGLfRhu6bC_0qYwOeKpaToA/pub?gid=114534825&single=true&output=csv";
+
+const playersCSV =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vQbu-x0A3E3xaDuKiZHAIjTDcV-XsDkpQJ3NuX9Qg8FGLfRhu6bC_0qYwOeKpaToA/pub?gid=1596992856&single=true&output=csv";
   
 async function loadCSV(url) {
   const response = await fetch(url);
@@ -156,9 +169,82 @@ async function loadTips() {
   document.getElementById("tips-table").innerHTML = html;
 }
 
+let allTips = [];
+
+async function loadPlayerButtons() {
+
+  const playerRows = await loadCSV(playersCSV);
+  const tipsRows = await loadCSV(tipsCSV);
+
+  allTips = tipsRows;
+
+  let buttonsHTML = "";
+
+  playerRows.slice(1).forEach(row => {
+
+    const playerName = row[0];
+
+    if(playerName){
+
+      buttonsHTML += `
+        <button onclick="showPlayerTips('${playerName}')"
+        style="
+          margin:5px;
+          padding:10px 15px;
+          border:none;
+          border-radius:8px;
+          background:#3b82f6;
+          color:white;
+          cursor:pointer;
+        ">
+          ${playerName}
+        </button>
+      `;
+    }
+
+  });
+
+  document.getElementById("player-buttons").innerHTML = buttonsHTML;
+}
+
+function showPlayerTips(playerName){
+
+  let html = `
+    <tr>
+      <th>Namn</th>
+      <th>Match ID</th>
+      <th>Tipp A</th>
+      <th>Tipp B</th>
+      <th>Poäng</th>
+    </tr>
+  `;
+
+  allTips.slice(1).forEach(row => {
+
+    if(row[0] === playerName){
+
+      html += "<tr>";
+
+      row.forEach((cell,index) => {
+
+        if(index <= 4){
+          html += `<td>${cell}</td>`;
+        }
+
+      });
+
+      html += "</tr>";
+    }
+
+  });
+
+  document.getElementById("player-tips-table").innerHTML = html;
+}
+  
 loadLeaderboard();
 loadMatches();
 loadTips();
+loadPlayerButtons();
   
 </script>
 
