@@ -39,10 +39,33 @@
     <table id="leaderboard-table"></table>
   </div>
 
-  <div class="section hidden-section" id="matches-section">
-    <h2>⚽ Matcher</h2>
-    <table id="matches-table"></table>
+<div class="section hidden-section" id="matches-section">
+
+  <h2>⚽ Matcher</h2>
+
+  <div class="navbar">
+
+    <button onclick="showMatches('today')">
+      🔥 Dagens
+    </button>
+
+    <button onclick="showMatches('upcoming')">
+      ⏳ Kommande
+    </button>
+
+    <button onclick="showMatches('played')">
+      ✅ Spelade
+    </button>
+
+    <button onclick="showMatches('all')">
+      📋 Alla
+    </button>
+
   </div>
+
+  <div id="matches-container"></div>
+
+</div>
 
   <div class="section hidden-section" id="tips-section">
     <h2>📝 Tips</h2>
